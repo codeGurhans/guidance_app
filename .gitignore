@@ -1,0 +1,50 @@
+﻿# Node
+node_modules/
+**/node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+build/
+dist/
+.tmp/
+.temp/
+.cache/
+**/build/
+**/dist/
+
+# Env files
+.env
+.env.*
+*.local
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Coverage
+coverage/
+**/coverage/
+
+# Uploads and generated assets
+uploads/
+**/uploads/
+public/*.map
+
+# Test artifacts
+junit.xml
+**/junit.xml
+
+# Misc
+*.pid
+*.seed
+*.tgz
