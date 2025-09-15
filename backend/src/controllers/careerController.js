@@ -1,7 +1,7 @@
+const mongoose = require('mongoose');
 const CareerPath = require('../models/CareerPath');
 const UserResponse = require('../models/UserResponse');
 const Assessment = require('../models/Assessment');
-const mongoose = require('mongoose');
 
 // Get all active career paths
 /**
@@ -55,6 +55,9 @@ const getCareerPathById = async (req, res) => {
  */
 const getRecommendations = async (req, res) => {
   try {
+    console.log('getRecommendations called with assessmentId:', req.params.assessmentId);
+    console.log('User ID from auth middleware:', req.user._id);
+    
     // req.user is set in the auth middleware
     const userId = req.user._id;
     const assessmentId = req.params.assessmentId;
@@ -62,19 +65,27 @@ const getRecommendations = async (req, res) => {
     let assessment;
     // Handle non-ObjectId for default quiz
     if (assessmentId === '1') {
+      console.log('Looking for default assessment');
       assessment = await Assessment.findOne({ isActive: true });
     } else if (mongoose.Types.ObjectId.isValid(assessmentId)) {
+      console.log('Looking for assessment by ID:', assessmentId);
       assessment = await Assessment.findById(assessmentId);
+    } else {
+      console.log('Invalid assessment ID format');
     }
 
     if (!assessment) {
+      console.log('Assessment not found');
       return res.status(404).json({ message: 'Assessment not found' });
     }
+    
+    console.log('Found assessment:', assessment.title);
 
     // Use the found assessment's actual _id for relations
     const actualAssessmentId = assessment._id;
 
     // Get the user's completed assessment
+    console.log('Looking for user response with userId:', userId, 'and assessmentId:', actualAssessmentId);
     const userResponse = await UserResponse.findOne({
       user: userId,
       assessment: actualAssessmentId,
@@ -82,11 +93,15 @@ const getRecommendations = async (req, res) => {
     }).populate('assessment');
     
     if (!userResponse) {
+      console.log('Completed assessment not found for user:', userId);
       return res.status(404).json({ message: 'Completed assessment not found' });
     }
     
+    console.log('Found user response with category scores:', userResponse.categoryScores.length);
+    
     // Get all active career paths
     const careerPaths = await CareerPath.find({ isActive: true });
+    console.log('Found career paths:', careerPaths.length);
     
     // Score each career path based on user's category scores
     const userCategoryScores = {};
@@ -152,6 +167,7 @@ const getRecommendations = async (req, res) => {
     // Return top 5 recommendations
     const recommendations = scoredCareerPaths.slice(0, 5);
     
+    console.log('Returning recommendations:', recommendations.length);
     res.status(200).json(recommendations);
   } catch (error) {
     console.error('Error in getRecommendations:', error);

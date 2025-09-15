@@ -1,11 +1,14 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
+require('dotenv').config(); // Load environment variables
 const app = require('../app');
 const AdmissionEvent = require('../models/AdmissionEvent');
 const College = require('../models/College');
+const User = require('../models/User');
 
 describe('Admission Events API', () => {
   let collegeId;
+  let adminToken;
   
   beforeAll(async () => {
     // Connect to test database using IPv4
@@ -25,12 +28,31 @@ describe('Admission Events API', () => {
     
     const savedCollege = await college.save();
     collegeId = savedCollege._id;
+    
+    // Create an admin user for testing
+    const adminUser = new User({
+      email: 'admin@test.com',
+      password: 'password123'
+    });
+    
+    const savedAdminUser = await adminUser.save();
+    
+    // Login to get admin token
+    const loginRes = await request(app)
+      .post('/api/users/login')
+      .send({
+        email: 'admin@test.com',
+        password: 'password123'
+      });
+    
+    adminToken = loginRes.body.token;
   }, 15000); // 15 second timeout
   
   afterAll(async () => {
     // Clean up test data
     await AdmissionEvent.deleteMany({});
     await College.deleteMany({});
+    await User.deleteMany({});
     await mongoose.connection.close();
   }, 15000); // 15 second timeout
   
@@ -69,6 +91,7 @@ describe('Admission Events API', () => {
       
       const res = await request(app)
         .post('/api/admission-events')
+        .set('Authorization', `Bearer ${adminToken}`)
         .send(eventData)
         .expect(201);
       
@@ -85,6 +108,7 @@ describe('Admission Events API', () => {
       
       await request(app)
         .post('/api/admission-events')
+        .set('Authorization', `Bearer ${adminToken}`)
         .send(eventData)
         .expect(400);
     }, 15000); // 15 second timeout

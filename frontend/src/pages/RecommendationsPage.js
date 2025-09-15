@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 import api from '../services/api';
@@ -14,41 +14,60 @@ const RecommendationsPage = () => {
   const [error, setError] = useState('');
 
   // Fetch career path recommendations
-  useEffect(() => {
-    // Don't do anything until the auth state is resolved
+  const fetchRecommendations = useCallback(async () => {
     if (authLoading) {
+      console.log('Still loading auth...');
       return;
     }
 
     // If auth is resolved and there's no token, user needs to log in.
     if (!token) {
+      console.log('No token found');
       setLoading(false);
       setError('You must be logged in to view recommendations.');
       return;
     }
 
-    const fetchRecommendations = async () => {
-      try {
-        setLoading(true);
-        
-        const res = await api.get(`/careers/recommendations/${assessmentId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        
-        setRecommendations(res.data);
-      } catch (err) {
-        setError(err.response?.data?.message || 'Failed to load recommendations');
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!assessmentId) {
+      console.log('No assessmentId found');
+      setLoading(false);
+      setError('No assessment ID provided.');
+      return;
+    }
 
-    if (assessmentId) {
-      fetchRecommendations();
+    try {
+      setLoading(true);
+      setError('');
+      
+      console.log('Fetching recommendations for assessmentId:', assessmentId);
+      
+      const res = await api.get(`/careers/recommendations/${assessmentId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      console.log('Recommendations response:', res.data);
+      setRecommendations(res.data);
+    } catch (err) {
+      console.error('Error fetching recommendations:', err);
+      console.error('Error response:', err.response);
+      setError(err.response?.data?.message || 'Failed to load recommendations');
+    } finally {
+      setLoading(false);
     }
   }, [token, assessmentId, authLoading]);
+
+  useEffect(() => {
+    console.log('RecommendationsPage useEffect called');
+    console.log('authLoading:', authLoading);
+    console.log('token:', token);
+    console.log('assessmentId:', assessmentId);
+    
+    fetchRecommendations();
+  }, [fetchRecommendations]);
+
+  console.log('Rendering RecommendationsPage with:', { loading, authLoading, error, recommendations: recommendations.length });
 
   if (loading || authLoading) {
     return (

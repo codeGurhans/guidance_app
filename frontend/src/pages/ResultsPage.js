@@ -265,7 +265,7 @@ const ResultsPage = () => {
         <div className="results-actions">
           <button 
             className="btn btn-primary"
-            onClick={() => navigate(`/recommendations/${id}`)}
+            onClick={() => navigate(`/recommendations/${results.assessment._id}`)}
           >
             View Recommendations
           </button>

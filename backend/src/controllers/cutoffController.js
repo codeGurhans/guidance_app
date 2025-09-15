@@ -131,6 +131,7 @@ const getHistoricalCutoffs = async (req, res) => {
     
     res.status(200).json(formattedData);
   } catch (error) {
+    console.error('Error in getHistoricalCutoffs:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
