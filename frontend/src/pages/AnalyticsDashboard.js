@@ -32,6 +32,15 @@ const AnalyticsDashboard = () => {
     }
   }, [token, user]);
 
+  // If not authenticated, show a clear message instead of an infinite loader
+  if (!token || !user) {
+    return (
+      <div className="page-container">
+        <div className="alert alert-error">You must be logged in to view analytics.</div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="page-container">
@@ -85,36 +94,36 @@ const AnalyticsDashboard = () => {
     <div className="page-container">
       <div className="analytics-dashboard">
         <div className="dashboard-header">
-          <h1 className="page-title">Your Analytics Dashboard</h1>
-          <p>Welcome back, {user?.email}. Here's your progress overview.</p>
+          <h1 className="page-title" style={{fontWeight: "bold", fontSize: "2rem"}}>Your Analytics Dashboard</h1>
+          <p style={{fontWeight: "bold", fontSize: "1.2rem"}}>Welcome back, {user?.email}. Here's your progress overview.</p>
         </div>
         
         {/* Progress Summary Cards */}
         <div className="dashboard-cards">
           <div className="dashboard-card">
-            <h3>Total Assessments</h3>
+            <h3 style={{fontWeight: "bold", fontSize: "1.2rem"}}>Total Assessments</h3>
             <div className="card-value">{analyticsData.progress.totalAssessments}</div>
           </div>
           
           <div className="dashboard-card">
-            <h3>Completed Assessments</h3>
+            <h3 style={{fontWeight: "bold", fontSize: "1.2rem"}}>Completed Assessments</h3>
             <div className="card-value">{analyticsData.progress.completedAssessments}</div>
           </div>
           
           <div className="dashboard-card">
-            <h3>Career Paths Explored</h3>
+            <h3 style={{fontWeight: "bold", fontSize: "1.2rem"}}>Career Paths Explored</h3>
             <div className="card-value">{analyticsData.careerPathsExplored}</div>
           </div>
           
           <div className="dashboard-card">
-            <h3>Skills Identified</h3>
+            <h3 style={{fontWeight: "bold", fontSize: "1.2rem"}}>Skills Identified</h3>
             <div className="card-value">{Object.keys(analyticsData.skillDevelopment).length}</div>
           </div>
         </div>
         
         {/* Category Scores Visualization */}
         <div className="dashboard-section">
-          <h2>Your Category Scores</h2>
+          <h2 style={{fontWeight: "bold", fontSize: "1.5rem"}}>Your Category Scores</h2>
           <div className="visualization-wrapper">
             <RadarChart 
               data={categoryScoresData}
@@ -125,7 +134,7 @@ const AnalyticsDashboard = () => {
         
         {/* Skill Gap Analysis */}
         <div className="dashboard-section">
-          <h2>Skill Gap Analysis</h2>
+          <h2 style={{fontWeight: "bold", fontSize: "1.5rem"}}>Skill Gap Analysis</h2>
           <div className="visualization-wrapper">
             <BarChart 
               data={skillGapData}
@@ -138,7 +147,7 @@ const AnalyticsDashboard = () => {
         
         {/* Progress Rings for Key Metrics */}
         <div className="dashboard-section">
-          <h2>Progress Overview</h2>
+          <h2 style={{fontWeight: "bold", fontSize: "1.5rem"}}>Progress Overview</h2>
           <div className="progress-rings-container">
             <ProgressRing 
               value={analyticsData.progress.completedAssessments}

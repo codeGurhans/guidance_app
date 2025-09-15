@@ -5,7 +5,7 @@ import api from '../services/api';
 import './RecommendationsPage.css';
 
 const RecommendationsPage = () => {
-  const { assessmentId } = useParams();
+  const { id: assessmentId } = useParams();
   const { token, loading: authLoading } = useContext(AuthContext);
   const navigate = useNavigate();
   

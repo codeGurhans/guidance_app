@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 const HomePage = () => {
   return (
     <div className="page-container">
-      <h1 className="page-title">Welcome to GuidanceHub</h1>
+      <h1 className="page-title" style={{fontWeight: "bold", fontSize: "2rem"}}>Welcome to GuidanceHub</h1>
       <div className="card">
-        <h2 className="card-title">Your Personalized Career Guidance Platform</h2>
+        <h2 className="card-title" style={{fontWeight: "bold", fontSize: "1.5rem"}}>Your Personalized Career Guidance Platform</h2>
         <p>
           GuidanceHub is designed to help you navigate your educational journey by providing 
           personalized career and education guidance. Take our aptitude assessment to discover 
@@ -15,26 +15,26 @@ const HomePage = () => {
       </div>
       
       <div className="card">
-        <h2 className="card-title">How It Works</h2>
+        <h2 className="card-title" style={{fontWeight: "bold", fontSize: "1.5rem"}}>How It Works</h2>
         <div className="features-grid">
           <div className="feature-item">
-            <h3>1. Assess</h3>
+            <h3 style={{fontWeight: "bold", fontSize: "1.2rem"}}>1. Assess</h3>
             <p>Take our comprehensive aptitude and interest-based quiz to understand your strengths</p>
           </div>
           <div className="feature-item">
-            <h3>2. Discover</h3>
+            <h3 style={{fontWeight: "bold", fontSize: "1.2rem"}}>2. Discover</h3>
             <p>Explore career paths and educational opportunities tailored to your profile</p>
           </div>
           <div className="feature-item">
-            <h3>3. Plan</h3>
+            <h3 style={{fontWeight: "bold", fontSize: "1.2rem"}}>3. Plan</h3>
             <p>Create a personalized roadmap for your academic and career journey</p>
           </div>
         </div>
       </div>
       
       <div className="card">
-        <h2 className="card-title">Get Started Today</h2>
-        <p>Join thousands of students who have already discovered their path with GuidanceHub</p>
+        <h2 className="card-title" style={{fontWeight: "bold", fontSize: "1.5rem"}}>Get Started Today</h2>
+        <p style={{marginBottom: "1rem"}}>Join thousands of students who have already discovered their path with GuidanceHub</p>
         <Link to="/quiz/1" className="btn btn-block">
           Take the Quiz
         </Link>

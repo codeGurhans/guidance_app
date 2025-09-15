@@ -1,5 +1,7 @@
 const CareerPath = require('../models/CareerPath');
 const UserResponse = require('../models/UserResponse');
+const Assessment = require('../models/Assessment');
+const mongoose = require('mongoose');
 
 // Get all active career paths
 /**

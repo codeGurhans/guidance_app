@@ -48,7 +48,10 @@ export const AuthProvider = ({ children }) => {
     try {
       // Make API call to login
       const response = await api.post('/users/login', { email, password });
-      const { user: userData, token: userToken } = response.data;
+      // Support both shapes: { user, token } and { _id, email, token }
+      const data = response.data || {};
+      const userToken = data.token;
+      const userData = data.user ? data.user : ({ _id: data._id, email: data.email });
       
       setUser(userData);
       setToken(userToken);

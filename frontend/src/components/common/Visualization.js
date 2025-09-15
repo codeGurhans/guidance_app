@@ -17,7 +17,11 @@ const BarChart = ({ data, title, xAxisLabel, yAxisLabel }) => {
         <div className="y-axis-label">{yAxisLabel}</div>
         <div className="chart-content">
           <div className="bars-container">
-            {data.map((item, index) => (
+            {data.map((item, index) => {
+              const shortLabel = item.label && item.label.length > 10
+                ? item.label.slice(0, 10) + '…'
+                : item.label;
+              return (
               <div key={index} className="bar-item">
                 <div 
                   className="bar" 
@@ -28,9 +32,10 @@ const BarChart = ({ data, title, xAxisLabel, yAxisLabel }) => {
                 >
                   <div className="bar-value">{item.value}</div>
                 </div>
-                <div className="bar-label">{item.label}</div>
+                <div className="bar-label" title={item.label}>{shortLabel}</div>
               </div>
-            ))}
+              );
+            })}
           </div>
           <div className="x-axis">
             <div className="x-axis-line"></div>
@@ -128,7 +133,7 @@ const RadarChart = ({ data, title }) => {
   const numPoints = data.length;
   const centerX = 50;
   const centerY = 50;
-  const radius = 40;
+  const radius = Math.max(28, Math.min(40, 40 - Math.max(0, (numPoints - 8)) * 1.5));
 
   const points = data.map((item, index) => {
     const angle = (index * 2 * Math.PI) / numPoints - Math.PI / 2;
@@ -211,9 +216,11 @@ const RadarChart = ({ data, title }) => {
           {/* Labels */}
           {data.map((item, index) => {
             const angle = (index * 2 * Math.PI) / numPoints - Math.PI / 2;
-            const labelRadius = radius + 5;
+            const labelRadius = radius + 8;
             const x = centerX + labelRadius * Math.cos(angle);
             const y = centerY + labelRadius * Math.sin(angle);
+            const raw = String(item.label || '');
+            const short = raw.length > 10 ? raw.slice(0, 10) + '…' : raw;
             return (
               <text
                 key={index}
@@ -221,10 +228,11 @@ const RadarChart = ({ data, title }) => {
                 y={y}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fontSize="3"
+                fontSize="1"
                 fill="#333"
+                title={raw}
               >
-                {item.label}
+                {short}
               </text>
             );
           })}
@@ -375,16 +383,18 @@ const LineChart = ({ data, title, xAxisLabel, yAxisLabel }) => {
             {data.map((item, index) => {
               const x = padding + index * pointSpacing;
               const y = 100 - padding + 5;
+              const raw = String(item.label || '');
+              const short = raw.length > 6 ? raw.slice(0, 6) + '…' : raw;
               return (
                 <text
                   key={index}
                   x={x}
                   y={y}
                   textAnchor="middle"
-                  fontSize="3"
+                  fontSize="2.5"
                   fill="#333"
                 >
-                  {item.label}
+                  {short}
                 </text>
               );
             })}

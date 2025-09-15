@@ -32,26 +32,26 @@ const Header = () => {
 
   return (
     <>
-      <header className="navbar">
+      <header className="navbar" style={{backgroundColor: "#1e3a8a"}}>
         <div className="nav-container">
-          <Link to="/" className="nav-logo">
+          <Link to="/" className="nav-logo" style={{marginRight: '2rem'}}>
             GuidanceHub
           </Link>
           
           <nav className="nav-menu">
-            <Link to="/" className="nav-link">Home</Link>
-            <Link to="/quiz/1" className="nav-link">Quiz</Link>
+            <Link to="/" className="nav-link" style={{marginTop:"1rem"}}>Home</Link>
+            <Link to="/quiz/1" className="nav-link" style={{marginTop:"1rem"}}>Quiz</Link>
             
             {user ? (
               <>
-                <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                <Link to="/analytics" className="nav-link">Analytics</Link>
-                <Link to="/colleges" className="nav-link">Colleges</Link>
-                <Link to="/admission-calendar" className="nav-link">Calendar</Link>
-                <Link to="/applications" className="nav-link">Applications</Link>
-                <Link to="/eligibility-checker" className="nav-link">Eligibility</Link>
+                <Link to="/dashboard" className="nav-link" style={{marginTop:"1rem"}}>Dashboard</Link>
+                <Link to="/analytics" className="nav-link" style={{marginTop:"1rem"}}>Analytics</Link>
+                <Link to="/colleges" className="nav-link" style={{marginTop:"1rem"}}>Colleges</Link>
+                <Link to="/admission-calendar" className="nav-link" style={{marginTop:"1rem"}}>Calendar</Link>
+                <Link to="/applications" className="nav-link" style={{marginTop:"1rem"}}>Applications</Link>
+                <Link to="/eligibility-checker" className="nav-link" style={{marginTop:"1rem"}}>Eligibility</Link>
                 <Link to="/cutoff-predictor" className="nav-link">Cutoff Predictor</Link>
-                <Link to="/profile" className="nav-link">Profile</Link>
+                <Link to="/profile" className="nav-link" style={{marginTop:"1rem"}}>Profile</Link>
                 
                 <div className="nav-notification" onClick={() => setIsNotificationPanelOpen(true)}>
                   <span className="notification-icon">🔔</span>

@@ -8,10 +8,10 @@ const DashboardPage = () => {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">Welcome to Your Dashboard</h1>
+      <h1 className="page-title" style={{fontWeight: "bold", fontSize: "2rem"}}>Welcome to Your Dashboard</h1>
       
       <div className="dashboard-card">
-        <h2>Your Profile</h2>
+        <h2 style={{fontWeight: "bold", fontSize: "1.5rem"}}>Your Profile</h2>
         <div className="profile-info">
           <p><strong>Email:</strong> {user?.email}</p>
           {user?.age && <p><strong>Age:</strong> {user.age}</p>}
@@ -43,7 +43,7 @@ const DashboardPage = () => {
       </div>
       
       <div className="dashboard-card">
-        <h2>Analytics & Insights</h2>
+        <h2 style={{fontWeight: "bold", fontSize: "1.5rem"}}>Analytics & Insights</h2>
         <p>Track your progress and gain insights from your assessments:</p>
         <div className="dashboard-actions">
           <Link to="/analytics" className="btn btn-primary">
@@ -53,14 +53,14 @@ const DashboardPage = () => {
       </div>
       
       <div className="dashboard-card">
-        <h2>Your Recommendations</h2>
-        <p>Based on your profile, we recommend exploring these career paths:</p>
+        <h2 style={{fontWeight: "bold", fontSize: "1.5rem"}}>Your Recommendations</h2>
+        <p style={{marginBottom: "1rem"}}>Based on your profile, we recommend exploring these career paths:</p>
         <ul className="recommendations-list">
           <li>Science and Technology</li>
           <li>Engineering</li>
           <li>Medicine</li>
         </ul>
-        <Link to="/recommendations" className="btn btn-outline">
+        <Link to="/recommendations/1" className="btn btn-outline" style={{marginTop: "1rem"}}>
           View All Recommendations
         </Link>
       </div>
