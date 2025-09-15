@@ -1,0 +1,201 @@
+.applications-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.applications-header h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.applications-header p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #333;
+}
+
+.filter-select, .filter-input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.filter-select:focus, .filter-input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.results-info {
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.applications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.application-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: #fafafa;
+  transition: box-shadow 0.2s ease;
+}
+
+.application-card:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.application-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.application-title {
+  margin: 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.application-status {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.application-status.applied {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.application-status.under-review {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.application-status.accepted {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.application-status.rejected {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.application-status.waitlisted {
+  background-color: #ede9fe;
+  color: #7c3aed;
+}
+
+.application-status.withdrawn {
+  background-color: #f3e8ff;
+  color: #9333ea;
+}
+
+.application-program {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.application-details {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.application-details ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.application-details li {
+  margin-bottom: 0.25rem;
+}
+
+.application-actions {
+  text-align: right;
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.no-results p {
+  margin-bottom: 1rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.page-info {
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .applications-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .filters {
+    grid-template-columns: 1fr;
+  }
+  
+  .applications-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .application-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .pagination {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

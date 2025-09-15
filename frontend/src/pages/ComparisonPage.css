@@ -1,0 +1,169 @@
+.comparison-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-header h1, .comparison-header h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.comparison-header p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.selection-section {
+  margin-bottom: 2rem;
+}
+
+.career-paths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.career-path-card {
+  padding: 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #fafafa;
+}
+
+.career-path-card:hover {
+  border-color: #4f46e5;
+  background-color: #f0f0ff;
+}
+
+.career-path-card.selected {
+  border-color: #4f46e5;
+  background-color: #e0e7ff;
+}
+
+.career-path-card h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.selection-indicator {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.comparison-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.comparison-actions .btn {
+  min-width: 150px;
+}
+
+.comparison-results {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.comparison-section {
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.comparison-section h3 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.education-comparison, .salary-comparison, .job-growth-comparison, .skills-comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.education-card, .salary-card, .job-growth-card, .skills-card {
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.education-card h4, .salary-card h4, .job-growth-card h4, .skills-card h4 {
+  margin-top: 0;
+  color: #333;
+}
+
+.education-card p, .salary-card p, .job-growth-card p {
+  margin: 0;
+  color: #555;
+  font-weight: 500;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}
+
+.more-skills {
+  background-color: #d1d5db;
+  color: #374151;
+}
+
+.visualization-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .comparison-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .career-paths-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .comparison-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .comparison-actions .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .education-comparison, .salary-comparison, .job-growth-comparison, .skills-comparison {
+    grid-template-columns: 1fr;
+  }
+  
+  .visualization-section {
+    grid-template-columns: 1fr;
+  }
+}

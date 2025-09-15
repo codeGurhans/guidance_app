@@ -1,0 +1,67 @@
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.profile-card h2 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.profile-form {
+  margin-top: 1rem;
+}
+
+.privacy-settings {
+  margin-top: 1rem;
+}
+
+.privacy-toggle {
+  margin: 1rem 0;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.account-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.account-actions .btn {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .account-actions {
+    flex-direction: column;
+  }
+}

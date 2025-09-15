@@ -1,0 +1,228 @@
+.visualization-container {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.visualization-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.visualization-placeholder {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* Bar Chart Styles */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  height: 300px;
+  padding: 1rem;
+  position: relative;
+}
+
+.y-axis-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  margin-right: 1rem;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.chart-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bars-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: calc(100% - 2rem);
+  gap: 1rem;
+}
+
+.bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 100px;
+}
+
+.bar {
+  width: 100%;
+  background-color: #4f46e5;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  transition: height 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.bar-value {
+  color: white;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.bar-label {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #333;
+}
+
+.x-axis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.x-axis-line {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.x-axis-label {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+/* Pie Chart Styles */
+.pie-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.pie-chart-svg {
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+}
+
+.pie-chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.legend-label {
+  flex: 1;
+  font-weight: 500;
+  color: #333;
+}
+
+.legend-value {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+/* Radar Chart Styles */
+.radar-chart {
+  display: flex;
+  justify-content: center;
+}
+
+.radar-chart-svg {
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+}
+
+/* Progress Ring Styles */
+.progress-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-ring-svg {
+  width: 150px;
+  height: 150px;
+}
+
+.progress-ring-label {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .visualization-container {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .bar-chart {
+    height: 250px;
+  }
+  
+  .bars-container {
+    gap: 0.5rem;
+  }
+  
+  .bar-item {
+    max-width: 80px;
+  }
+  
+  .visualization-title {
+    font-size: 1.25rem;
+  }
+  
+  .pie-chart {
+    gap: 1rem;
+  }
+  
+  .pie-chart-svg {
+    max-width: 250px;
+    height: 250px;
+  }
+  
+  .pie-chart-legend {
+    max-width: 250px;
+  }
+  
+  .radar-chart-svg {
+    max-width: 300px;
+    height: 300px;
+  }
+  
+  .progress-ring-svg {
+    width: 120px;
+    height: 120px;
+  }
+}

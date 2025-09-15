@@ -1,0 +1,49 @@
+/* High contrast mode styles */
+.high-contrast {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.high-contrast .quiz-container {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff;
+}
+
+.high-contrast .option-button {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff;
+}
+
+.high-contrast .option-button.selected {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+.high-contrast .btn {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 2px solid #fff;
+}
+
+.high-contrast .btn:hover {
+  background-color: #ccc !important;
+}
+
+.high-contrast .progress-bar {
+  background-color: #333 !important;
+  border: 1px solid #fff;
+}
+
+.high-contrast .progress-fill {
+  background-color: #fff !important;
+}
+
+.high-contrast h1, .high-contrast h2, .high-contrast h3 {
+  color: #fff !important;
+}
+
+.high-contrast .question-text {
+  color: #fff !important;
+}
