@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const connectDB = async () => {
   try {
     // Ensure we're using IPv4 localhost
-    const mongoUri = process.env.MONGO_URI.replace('localhost', '127.0.0.1');
+    const mongoUri = process.env.MONGO_URI ? 
+      process.env.MONGO_URI.replace('localhost', '127.0.0.1') : 
+      'mongodb://127.0.0.1:27017/guidance-platform';
     
     const conn = await mongoose.connect(mongoUri, {
       // Remove deprecated options

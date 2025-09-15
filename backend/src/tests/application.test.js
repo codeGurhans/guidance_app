@@ -1,6 +1,7 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+require('dotenv').config(); // Load environment variables
 const app = require('../app');
 const User = require('../models/User');
 const College = require('../models/College');
@@ -16,10 +17,10 @@ describe('Student Applications API', () => {
     const mongoUri = process.env.MONGO_URI_TEST || 'mongodb://127.0.0.1:27017/guidancehub_test';
     await mongoose.connect(mongoUri);
     
-    // Create a test user
+    // Create a test user (let the pre-save hook hash the password)
     const user = new User({
       email: 'applicant@test.com',
-      password: await bcrypt.hash('password123', 10)
+      password: 'password123' // Plain text password, will be hashed by pre-save hook
     });
     
     const savedUser = await user.save();
@@ -51,6 +52,9 @@ describe('Student Applications API', () => {
         password: 'password123'
       });
     
+    // Debug the login response
+    console.log('Login response:', res.body);
+    
     token = res.body.token;
   }, 15000); // 15 second timeout
   
@@ -69,6 +73,9 @@ describe('Student Applications API', () => {
         programName: 'B.Tech',
         academicScore: 85
       };
+      
+      // Debug the token
+      console.log('Token:', token);
       
       const res = await request(app)
         .post('/api/applications/check')
@@ -140,6 +147,14 @@ describe('Student Applications API', () => {
         .get('/api/applications')
         .set('Authorization', `Bearer ${token}`);
       
+      // Debug the response
+      console.log('Applications response:', applicationsRes.body);
+      
+      // Check if applications exist
+      if (!applicationsRes.body.applications || applicationsRes.body.applications.length === 0) {
+        throw new Error('No applications found');
+      }
+      
       const applicationId = applicationsRes.body.applications[0]._id;
       
       const res = await request(app)
@@ -149,4 +164,6 @@ describe('Student Applications API', () => {
         .expect(200);
       
       expect(res.body.status).toBe('Documents Submitted');
-    }, 15000); // 15 second timeou
+    }, 15000); // 15 second timeout
+  });
+});

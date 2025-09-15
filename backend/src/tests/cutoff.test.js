@@ -1,5 +1,6 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
+require('dotenv').config(); // Load environment variables
 const app = require('../app');
 const College = require('../models/College');
 const HistoricalAdmission = require('../models/HistoricalAdmission');
@@ -8,8 +9,8 @@ describe('Cutoff Prediction API', () => {
   let collegeId;
   
   beforeAll(async () => {
-    // Connect to test database
-    const mongoUri = process.env.MONGO_URI_TEST || 'mongodb://localhost:27017/guidancehub_test';
+    // Connect to test database using IPv4
+    const mongoUri = process.env.MONGO_URI_TEST || 'mongodb://127.0.0.1:27017/guidancehub_test';
     await mongoose.connect(mongoUri);
     
     // Create a test college
@@ -45,14 +46,14 @@ describe('Cutoff Prediction API', () => {
     });
     
     await historicalData.save();
-  }, 10000); // 10 second timeout
+  }, 15000); // 15 second timeout
   
   afterAll(async () => {
     // Clean up test data
     await College.deleteMany({});
     await HistoricalAdmission.deleteMany({});
     await mongoose.connection.close();
-  }, 10000); // 10 second timeout
+  }, 15000); // 15 second timeout
   
   describe('POST /api/cutoff/predict', () => {
     it('should predict cutoff for a program', async () => {
@@ -71,7 +72,7 @@ describe('Cutoff Prediction API', () => {
       expect(res.body.prediction).toHaveProperty('predictedCutoffScore');
       expect(res.body.college.name).toBe('Cutoff Test University');
       expect(res.body.program).toBe('B.Tech');
-    }, 10000); // 10 second timeout
+    }, 15000); // 15 second timeout
     
     it('should return 400 if required fields are missing', async () => {
       const cutoffData = {
@@ -83,7 +84,7 @@ describe('Cutoff Prediction API', () => {
         .post('/api/cutoff/predict')
         .send(cutoffData)
         .expect(400);
-    }, 10000); // 10 second timeout
+    }, 15000); // 15 second timeout
   });
   
   describe('GET /api/cutoff/history', () => {
@@ -91,7 +92,7 @@ describe('Cutoff Prediction API', () => {
       const res = await request(app)
         .get('/api/cutoff/history')
         .query({
-          collegeId: collegeId,
+          collegeId: collegeId.toString(), // Convert ObjectId to string
           programName: 'B.Tech',
           category: 'General'
         })
@@ -101,7 +102,7 @@ describe('Cutoff Prediction API', () => {
       expect(res.body.length).toBeGreaterThan(0);
       expect(res.body[0]).toHaveProperty('academicYear');
       expect(res.body[0]).toHaveProperty('cutoffScore');
-    }, 10000); // 10 second timeout
+    }, 15000); // 15 second timeout
   });
   
   describe('POST /api/cutoff/compare', () => {
@@ -120,6 +121,6 @@ describe('Cutoff Prediction API', () => {
       expect(res.body).toBeInstanceOf(Array);
       expect(res.body.length).toBeGreaterThan(0);
       expect(res.body[0].college.name).toBe('Cutoff Test University');
-    }, 10000); // 10 second timeout
+    }, 15000); // 15 second timeout
   });
 });

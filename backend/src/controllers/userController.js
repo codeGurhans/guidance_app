@@ -18,6 +18,8 @@ const validateEmail = (email) => {
  * @returns {object} - User object
  */
 const registerUser = async (req, res) => {
+  console.log('Registration request received with body:', req.body);
+  
   const { email, password, age, gender, grade, academicInterests, location } = req.body;
 
   // Validate required fields
@@ -41,19 +43,33 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
+    // Ensure academicInterests is an array
+    const interestsArray = Array.isArray(academicInterests) ? academicInterests : [];
+
     // Create new user with extended profile information
     const user = new User({
       email,
       password,
-      age,
+      age: age ? parseInt(age) : undefined,
       gender,
       grade,
-      academicInterests,
+      academicInterests: interestsArray,
+      location,
+    });
+
+    console.log('Attempting to save user:', {
+      email,
+      age: age ? parseInt(age) : undefined,
+      gender,
+      grade,
+      academicInterests: interestsArray,
       location,
     });
 
     // Save user to database (password will be hashed by pre-save hook)
     const savedUser = await user.save();
+    
+    console.log('User saved successfully:', savedUser._id);
 
     // Generate JWT token
     const token = generateToken(savedUser._id);
@@ -70,7 +86,24 @@ const registerUser = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Registration error:', error);
+    console.error('Error stack:', error.stack);
+    
+    // Check if it's a validation error
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ 
+        message: 'Validation error', 
+        errors 
+      });
+    }
+    
+    res.status(500).json({ 
+      message: 'Server error', 
+      error: error.message,
+      // In development, you might want to include the stack trace
+      // stack: error.stack 
+    });
   }
 };
 

@@ -179,10 +179,11 @@ const deleteNotification = async (req, res) => {
       return res.status(404).json({ message: 'Notification not found' });
     }
     
-    await notification.remove();
+    await Notification.deleteOne({ _id: id, user: userId });
     
     res.status(200).json({ message: 'Notification deleted successfully' });
   } catch (error) {
+    console.error('Error deleting notification:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };

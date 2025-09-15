@@ -7,6 +7,7 @@ const {
   deleteAdmissionEvent,
   getUpcomingAdmissionEvents
 } = require('../controllers/admissionEventController');
+const auth = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -15,10 +16,9 @@ router.get('/', getAdmissionEvents);
 router.get('/upcoming', getUpcomingAdmissionEvents);
 router.get('/:id', getAdmissionEventById);
 
-// Private routes (require authentication and admin privileges)
-// Note: In a real implementation, you would add middleware to check for admin privileges
-router.post('/', createAdmissionEvent);
-router.put('/:id', updateAdmissionEvent);
-router.delete('/:id', deleteAdmissionEvent);
+// Private routes (require authentication)
+router.post('/', auth, createAdmissionEvent);
+router.put('/:id', auth, updateAdmissionEvent);
+router.delete('/:id', auth, deleteAdmissionEvent);
 
 module.exports = router;
