@@ -65,6 +65,10 @@ const RegisterPage = () => {
     // Basic frontend validation
     const newErrors = {};
     
+    if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters long';
+    }
+    
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
@@ -96,7 +100,22 @@ const RegisterPage = () => {
       // Redirect to dashboard
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      // Handle validation errors from backend
+      if (err.response?.data?.errors) {
+        const backendErrors = {};
+        err.response.data.errors.forEach(error => {
+          // Map backend errors to frontend fields
+          if (error.includes('password')) {
+            backendErrors.password = error;
+          } else {
+            // For other errors, we'll just show a general error message
+            setError(error);
+          }
+        });
+        setErrors(backendErrors);
+      } else {
+        setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
