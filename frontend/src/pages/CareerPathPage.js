@@ -15,28 +15,40 @@ const CareerPathPage = () => {
 
   // Fetch career path details
   useEffect(() => {
+    console.log('CareerPathPage useEffect called');
+    console.log('token:', token);
+    console.log('id:', id);
+    
     const fetchCareerPath = async () => {
       try {
         setLoading(true);
+        setError('');
         
-        const res = await api.get(`/careers/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        console.log('Fetching career path with id:', id);
         
+        // Career path details endpoint is public, so we don't need to send auth header
+        const res = await api.get(`/careers/${id}`);
+        
+        console.log('Career path response:', res.data);
         setCareerPath(res.data);
       } catch (err) {
+        console.error('Error fetching career path:', err);
+        console.error('Error response:', err.response);
         setError(err.response?.data?.message || 'Failed to load career path details');
       } finally {
         setLoading(false);
       }
     };
 
-    if (token && id) {
+    if (id) {
       fetchCareerPath();
+    } else {
+      console.log('No id found');
+      setLoading(false);
     }
-  }, [token, id]);
+  }, [id]);
+
+  console.log('Rendering CareerPathPage with:', { loading, error, careerPath });
 
   if (loading) {
     return (
